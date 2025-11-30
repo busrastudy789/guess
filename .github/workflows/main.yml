@@ -1,0 +1,54 @@
+name: CI/CD Pipeline GuessGame
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test-package-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      # 1. Checkout code
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      # 2. Build
+      - name: Build guess.c
+        run: gcc guess.c -o guess
+
+      # 3. Run tests
+      - name: Test guess program existence
+        run: |
+          if [ -f guess ]; then
+            echo "Build successful!"
+          else
+            echo "Build failed!" && exit 1
+          fi
+
+      # 4. Package / Artifact
+      - name: Create build artifact
+        run: zip -r build.zip guess
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: guess-build
+          path: build.zip
+
+      # 5. Simulated Deploy
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: guess-build
+          path: deployed
+
+      - name: Simulated Deploy print message using DEPLOY_API_KEY
+        env:
+          DEPLOY_API_KEY: ${{ secrets.DEPLOY_API_KEY }}
+        run: |
+          echo "Listing deployed artifact:"
+          ls deployed
+          echo "Deployment using API Key: $DEPLOY_API_KEY"
