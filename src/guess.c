@@ -12,7 +12,7 @@ int check(int g){
     
 }
 int main(){
-    n=5;
+    n=10;
     int i,g;
 
     for(i=0;i<5;i++){
