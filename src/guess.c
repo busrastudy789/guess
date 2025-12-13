@@ -1,5 +1,5 @@
 #include<stdio.h>
-int n,g;
+int n;
 int check(int g){
     if(n==g){
         printf("Correct guess!\n");
@@ -13,7 +13,7 @@ int check(int g){
 }
 int main(){
     n=10;
-    int i;
+    int i,g;
 
     for(i=0;i<5;i++){
         printf("Guess the pass: ");
@@ -23,9 +23,7 @@ int main(){
             break;
         }
     }
-    if(i==5){
-    printf("Out of attempts!\n");
-    }
+    if(i==5) printf("Out of attempts!\n");
     return 0;
 }
 
