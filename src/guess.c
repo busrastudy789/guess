@@ -15,7 +15,7 @@ int main(){
     n=10;
     int i,g;
 
-    for(i=0;i<5;i++){
+    for(i=0;i<10;i++){
         printf("Guess the pass: ");
         scanf("%d",&g);
         int result = check(g);
@@ -23,7 +23,7 @@ int main(){
             break;
         }
     }
-    if(i==5) printf("Out of attempts!\n");
+    if(i==10) printf("Out of attempts!\n");
     return 0;
 }
 
